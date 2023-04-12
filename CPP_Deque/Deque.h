@@ -48,9 +48,8 @@ namespace Colelctions
 	const T& Deque<T>::at(size_t n) const
 	{
 		if (n < 0 || n >= _size) 
-		{
 			throw std::out_of_range("Index is out of deque size");
-		}
+		
 		auto curr = head;
 		for (auto i = 0; i < n; i++, curr = curr->next);
 		return curr->value;
@@ -76,30 +75,26 @@ namespace Colelctions
 	template <class T>
 	void Deque<T>::pop_front()
 	{
-		if (head != nullptr)
-		{
-			auto node = head;
-			head = head->next;
-			if (_size == 1)
-				tail = nullptr;
-			else
-				head->prev = nullptr;
-			_size--;
-			delete node;
-		}
-		else
-		{
+		if (empty())
 			throw std::out_of_range("Deque is empty");
-		}
+		
+		auto node = head;
+		head = head->next;
+		if (_size == 1)
+			tail = nullptr;
+		else
+			head->prev = nullptr;
+		_size--;
+		delete node;
 	}
 
 	template <class T>
 	const T& Deque<T>::front() const
 	{
-		if (head != nullptr)
-			return head->value;	
-		else
+		if (empty())
 			throw std::out_of_range("Deque is empty");
+		
+		return head->value;	
 	}
 
 	template <class T>
@@ -122,31 +117,26 @@ namespace Colelctions
 	template <class T>
 	void Deque<T>::pop_back()
 	{
-		if (tail != nullptr)
-		{
-			auto node = tail;
-			tail = tail->prev;
-			if (_size == 1)
-				head = nullptr;
-			else
-				tail->next = nullptr;
-			_size--;
-			delete node;
-		}
-		else
-		{
+		if (empty())
 			throw std::out_of_range("Deque is empty");
-		}
+			
+		auto node = tail;
+		tail = tail->prev;
+		if (_size == 1)
+			head = nullptr;
+		else
+			tail->next = nullptr;
+		_size--;
+		delete node;	
 	}
 
 	template <class T>
 	const T& Deque<T>::back() const
 	{
-		if (tail != nullptr)		
-			return tail->value;
-		else		
+		if (empty())
 			throw std::out_of_range("Deque is empty");
-	
+
+		return tail->value;	
 	}
 
 	template <class T>
